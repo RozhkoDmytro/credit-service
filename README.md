@@ -1,93 +1,85 @@
 # Credit Service
 
-## Project Description
-
-Credit Service is a web service that facilitates financial operations, such as managing credits, payments, and financial plans. The API is built using **Django REST Framework (DRF)** and relies on **MySQL/MS SQL** for data storage.
+## Description
+Credit Service is a web service that facilitates financial operations, such as managing credits, payments, and financial plans. The API is built using Django REST Framework (DRF) and relies on MySQL/MS SQL for data storage.
 
 ## Technologies
-
-- **Python 3.9+**
-- **Django 4+ / Django REST Framework**
-- DJANGO DB models
-- **MySQL** as the primary database
+- **Programming Language**: Python 3.9+
+- **Framework**: Django 4+ / Django REST Framework
+- **Database**: MySQL or MS SQL
+- **ORM**: Django's built-in ORM
 
 ## Installation and Setup
 
 You can run the service either manually or using Docker. Choose one of the following methods:
 
+### Manual Setup
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/RozhkoDmytro/credit-service.git
+   cd credit-service
+   ```
+
+2. **Create and activate a virtual environment:**
+   ```sh
+   python -m venv env
+   source env/bin/activate  # On Windows, use 'env\Scripts\activate'
+   ```
+
+3. **Install dependencies:**
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+4. **Set up environment variables:**
+   - Copy `example.env` to `.env`:
+     ```sh
+     cp example.env .env
+     ```
+   - Update `.env` with your database credentials and other configurations.
+
+5. **Apply database migrations:**
+   ```sh
+   python manage.py migrate
+   ```
+
+6. **Load initial data:**
+   - Place your CSV files in the `static/csv_files/` directory.
+   - Run the data loading script:
+     ```sh
+     python manage.py import_csv
+     ```
+
+7. **Start the development server:**
+   ```sh
+   python manage.py runserver
+   ```
+
 ### Docker Setup
 
-To run the service using Docker, copy the `example.env` file to `.env` and configure it accordingly:
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/RozhkoDmytro/credit-service.git
+   cd credit-service
+   ```
 
-```bash
-cp example.env .env
-```
+2. **Build and start the Docker containers:**
+   ```sh
+   docker-compose up --build
+   ```
 
-Then, build and start the container with:
+3. **Apply database migrations inside the web container:**
+   ```sh
+   docker-compose exec web python manage.py migrate
+   ```
 
-```bash
-docker-compose up --build
-```
+4. **Load initial data:**
+   ```sh
+   docker-compose exec web python manage.py import_csv
+   ```
 
-#### Environment Variables
-Ensure your `.env` file is properly configured before running the container. Below are the required environment variables:
-
-```ini
-DB_NAME=your_db_name
-DB_USER=your_db_user
-DB_PASSWORD=your_db_password
-DB_HOST=db  # The service name in docker-compose
-DB_PORT=3306  # or 1433 for MS SQL
-```
-
-## Manual Setup if you prefer running the service without Docker.
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/RozhkoDmytro/credit-service
-cd credit-service
-```
-
-### 2. Create a Virtual Environment
-
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux & Mac
-venv\Scripts\activate  # Windows
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Configure Environment Variables
-
-Create a `.env` file in the project's root directory and add:
-
-```ini
-DB_NAME=your_db_name
-DB_USER=your_db_user
-DB_PASSWORD=your_db_password
-DB_HOST=localhost
-DB_PORT=3306  # or 1433 for MS SQL
-```
-
-### 5. Run Migrations
-
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
-### 6. Start the Server
-
-```bash
-python manage.py runserver
-```
-
+The service should now be accessible at `http://localhost:8000/`.
 ## Project Structure
 
 ```plaintext
@@ -106,25 +98,48 @@ finance_project/
 
 ## API Endpoints
 
-### **Credits**
+- **Retrieve User Credits:** `GET /user_credits/{user_id}/`
+- **Upload Plans:** `POST /plans_insert/` (Accepts an Excel file)
 
-- `GET /api/user_credits/{user_id}/` – Retrieve the credit history of a user
-
-### **Payments**
-
-- `POST /api/plans_insert/` – Upload financial plans for a new month
-- `GET /api/plans_performance/?date=YYYY-MM-DD` – Get financial plan performance for a given date
-- `GET /api/year_performance/?year=YYYY` – Retrieve annual analytics
+## API Endpoints (in plans)
+- **Plan Performance Evaluation:** `GET /plans_performance/?date=YYYY-MM-DD`
+- **Annual Summary Report:** `GET /year_performance/?year=YYYY`
 
 ## Testing
 
-Run tests using:
+1. **Ensure test dependencies are installed:**
+   ```sh
+   pip install -r requirements.txt
+   ```
 
-```bash
-python manage.py test
-```
+2. **Run tests:**
+   ```sh
+   python manage.py test
+   ```
+
+## Postman Configuration
+
+A Postman collection is available in the repository as `Credit-service.postman_collection.json`. To use it:
+
+1. **Import the collection:**
+   - Open Postman.
+   - Click on **Import**.
+   - Select the `Credit-service.postman_collection.json` file from the repository.
+
+2. **Set up environment variables:**
+   - Configure the necessary environment variables in Postman to match your local setup.
+
+3. **Execute requests:**
+   - Use the imported collection to test the API endpoints.
+
+## Test Data
+
+Sample test data is located in the `static/test_xlsx/` directory. Ensure that the Excel files are formatted correctly before uploading them through the `/plans_insert/` endpoint.
+
+## License
+
+This project is licensed under the Unlicense License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
 For any inquiries or suggestions, contact us via email: [d.rozhko.ua@gmail.com](mailto\:d.rozhko.ua@gmail.com)
-
