@@ -3,7 +3,7 @@ from users.models import User
 
 
 class Credit(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="credits")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="credits")
     issuance_date = models.DateField()
     return_date = models.DateField()
     actual_return_date = models.DateField(null=True, blank=True)

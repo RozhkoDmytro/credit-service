@@ -50,11 +50,20 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "credit_service",
     "rest_framework",
     "drf_spectacular",
     "drf_spectacular_sidecar",
 ]
+
+INSTALLED_APPS += [
+    "credit_service",
+    "users",
+    "credits",
+    "dictionary",
+    "plans",
+    "payments",
+]
+
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }

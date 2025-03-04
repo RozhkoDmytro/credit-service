@@ -6,6 +6,9 @@ python manage.py migrate --no-input
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
+echo "Import csv to DB"
+python manage.py import_csv
+
 CPU_COUNT=$(nproc)
 WORKERS=$((2 * CPU_COUNT + 1))
 
