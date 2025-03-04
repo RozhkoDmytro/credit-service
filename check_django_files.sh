@@ -4,7 +4,7 @@
 
 #!/bin/bash
 # List of directories to check (modify as needed)
-DIRECTORIES=("credit_service")
+DIRECTORIES=("credit_service" "users" "credits" "dictionary" "payments" "plans" "reports") 
 
 # List of required files in each directory
 REQUIRED_FILES=("models.py" "views.py" "serializers.py" "urls.py" "permissions.py")
@@ -33,4 +33,3 @@ for dir in "${DIRECTORIES[@]}"; do
 done
 
 echo "Check completed!"
-s
