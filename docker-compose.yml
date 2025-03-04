@@ -1,4 +1,20 @@
 services:
+  django_credit_service:
+    build: .
+    container_name: credit_service
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app/
+      - static_volume:/app/staticfiles
+    restart: always
+    stdin_open: true
+    tty: true
+    command: ["sh", "./entrypoint.sh"]
   db:
     image: mysql:8.0
     container_name: mysql_db
@@ -18,22 +34,7 @@ services:
       retries: 5
       start_period: 30s
 
-  django_credit_service:
-    build: .
-    container_name: credit_service
-    env_file: .env
-    depends_on:
-      db:
-        condition: service_healthy
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app/
-      - static_volume:/app/staticfiles
-    restart: always
-    stdin_open: true
-    tty: true
-    command: ["sh", "./entrypoint.sh"]
+
 
 volumes:
   mysql_data:
