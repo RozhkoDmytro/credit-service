@@ -8,7 +8,7 @@ Credit Service is a web service that facilitates financial operations, such as m
 
 - **Python 3.9+**
 - **Django 4+ / Django REST Framework**
-- **SQLAlchemy** for database interaction
+- DJANGO DB models
 - **MySQL** as the primary database
 
 ## Installation and Setup
