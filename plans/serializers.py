@@ -9,3 +9,7 @@ class PlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plan
         fields = ["id", "period", "sum", "categor_id"]
+
+
+class PlanUploadSerializer(serializers.Serializer):
+    file = serializers.FileField()
